@@ -1,6 +1,33 @@
 // script.js
-document.getElementById('contact-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    alert('Thank you for your message! I will get back to you soon.');
-    this.reset(); // Clears the form after submission
-});
+function submitForm(event) {
+  event.preventDefault();
+  
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const message = document.getElementById('message').value;
+
+  // Example payload
+  const data = {
+    name: name,
+    email: email,
+    message: message
+  };
+
+  // Send data to your backend (e.g., via fetch API)
+  fetch('YOUR_BACKEND_ENDPOINT_URL', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById('responseMessage').innerHTML = "Thank you for contacting us!";
+    document.getElementById('contactForm').reset();
+  })
+  .catch(error => {
+    document.getElementById('responseMessage').innerHTML = "There was an error submitting your form.";
+  });
+}
+
