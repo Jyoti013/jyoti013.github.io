@@ -1,33 +1,17 @@
 // script.js
-function submitForm(event) {
-  event.preventDefault();
-  
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
-  const message = document.getElementById('message').value;
+function doPost(e) {
+  try {
+    var sheet = SpreadsheetApp.openById('1iwSgvgob4uoZpw5NwiQng75zV8GP5Bu7YC8YIFUU2vQ').getActiveSheet();
+    var params = JSON.parse(e.postData.contents);
 
-  // Example payload
-  const data = {
-    name: name,
-    email: email,
-    message: message
-  };
+    sheet.appendRow([params.name, params.email, params.message, new Date()]);
 
-  // Send data to your backend (e.g., via fetch API)
-  fetch('https://script.google.com/macros/s/AKfycby84F77JPZ5MMwwJ0vJtdvFCMq_RaCO3Bf1_t7pCkg4WuwVEStD_YOcEjyiC3LCS4Eq/exec', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  })
-  .then(response => response.json())
-  .then(data => {
-    document.getElementById('responseMessage').innerHTML = "Thank you for contacting us!";
-    document.getElementById('contactForm').reset();
-  })
-  .catch(error => {
-    document.getElementById('responseMessage').innerHTML = "There was an error submitting your form.";
-  });
+    return ContentService.createTextOutput(JSON.stringify({ 'status': 'success' }))
+                         .setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({ 'status': 'error', 'message': error.message }))
+                         .setMimeType(ContentService.MimeType.JSON);
+  }
 }
+
 
