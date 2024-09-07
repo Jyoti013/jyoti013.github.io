@@ -14,7 +14,7 @@ function submitForm(event) {
   };
 
   // Send data to your backend (e.g., via fetch API)
-  fetch('YOUR_BACKEND_ENDPOINT_URL', {
+  fetch('https://script.google.com/macros/s/AKfycby84F77JPZ5MMwwJ0vJtdvFCMq_RaCO3Bf1_t7pCkg4WuwVEStD_YOcEjyiC3LCS4Eq/exec', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
