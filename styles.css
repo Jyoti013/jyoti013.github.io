@@ -329,4 +329,11 @@ footer p {
     }
 }
 
+.logo img {
+    width: 50px; /* Adjust as necessary */
+    height: 50px;
+    margin-right: 10px;
+    vertical-align: middle; /* Align the logo with text */
+}
+
 }
